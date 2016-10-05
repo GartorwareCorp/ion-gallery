@@ -5,9 +5,9 @@
     .module('ion-gallery')
     .directive('ionSlider',ionSlider);
 
-  ionSlider.$inject = ['$ionicModal','$timeout','$ionicScrollDelegate','ionicSlideBoxDelegate','ionSliderHelper','ionGalleryConfig'];
+  ionSlider.$inject = ['$ionicModal','$timeout','$ionicScrollDelegate','$ionicSlideBoxDelegate','ionSliderHelper','ionGalleryConfig'];
 
-  function ionSlider($ionicModal,$timeout,$ionicScrollDelegate,ionicSlideBoxDelegate,ionSliderHelper,ionGalleryConfig){
+  function ionSlider($ionicModal,$timeout,$ionicScrollDelegate,$ionicSlideBoxDelegate,ionSliderHelper,ionGalleryConfig){
 
     return {
       restrict: 'A',
