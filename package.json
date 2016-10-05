@@ -1,6 +1,6 @@
 {
   "name": "ion-gallery",
-  "version": "0.1.14",
+  "version": "1.0.0",
   "description": "Ionic gallery directive",
   "main": "gulpfile.js",
   "dependencies": {},
@@ -21,6 +21,6 @@
     "gallery",
     "slider"
   ],
-  "author": "Pedro Abreu <pmig.abreu@gmail.com>",
+  "author": "Pedro Abreu <pmig.abreu@gmail.com>, gartorware <gartorware@gmail.com>",
   "license": "MIT"
 }

@@ -1,6 +1,6 @@
 {
   "name": "ion-gallery",
-  "version": "0.1.14",
+  "version": "1.0.0",
   "description": "Ionic gallery directive",
   "main": "dist/ion-gallery.min.js",
   "keywords": [
@@ -9,7 +9,8 @@
     "slider"
   ],
   "authors": [
-    "Pedro Abreu <pmig.abreu@gmail.com>"
+    "Pedro Abreu <pmig.abreu@gmail.com>",
+    "gartorware <gartorware@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
@@ -19,6 +20,8 @@
     "test",
     "tests"
   ],
+  "dependencies": {
+  },
   "devDependencies": {
     "angular-mocks": "~1.4.0",
     "ionic": "~1.1.0"
