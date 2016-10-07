@@ -1,6 +1,6 @@
 {
   "name": "ion-gallery",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "description": "Ionic gallery directive",
   "main": "gulpfile.js",
   "dependencies": {},
