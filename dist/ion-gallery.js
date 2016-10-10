@@ -7,7 +7,7 @@
 
   ionGallery.$inject = ['$ionicPlatform', 'ionGalleryHelper', 'ionGalleryConfig'];
 
-  function ionGallery($ionicPlatform, ionGalleryHelper, ionGalleryConfig) {
+  function ionGallery($ionicPlatform, ionGalleryHelper, ionGalleryConfig) {
     controller.$inject = ["$scope"];
     return {
       restrict: 'AE',
@@ -273,25 +273,25 @@
   }
 })();
 
-(function(){
+(function () {
   'use strict';
 
   angular
     .module('ion-gallery')
-    .directive('ionSlider',ionSlider);
+    .directive('ionSlider', ionSlider);
 
-  ionSlider.$inject = ['$ionicModal','$timeout','$ionicScrollDelegate','$ionicSlideBoxDelegate','ionSliderHelper','ionGalleryConfig'];
+  ionSlider.$inject = ['$ionicModal', '$timeout', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', 'ionSliderHelper', 'ionGalleryConfig'];
 
-  function ionSlider($ionicModal,$timeout,$ionicScrollDelegate,$ionicSlideBoxDelegate,ionSliderHelper,ionGalleryConfig){
-
+  function ionSlider($ionicModal, $timeout, $ionicScrollDelegate, $ionicSlideBoxDelegate, ionSliderHelper, ionGalleryConfig) {
+
     controller.$inject = ["$scope"];
     return {
       restrict: 'A',
       controller: controller,
-      link : link
+      link: link
     };
 
-    function controller($scope){
+    function controller($scope) {
       var lastSlideIndex;
       var currentImage;
 
@@ -302,7 +302,7 @@
       $scope.hideAll = false;
       $scope.ionZoomEvents = ionSliderHelper.setZoomEvents($scope.ionZoomEvents)
 
-      $scope.openSlider = function(index) {
+      $scope.openSlider = function (index) {
         $scope.slides = [];
         currentImage = index;
 
@@ -319,9 +319,9 @@
         $scope.openModal();
       };
 
-      $scope.slideChanged = function(currentSlideIndex) {
+      $scope.slideChanged = function (currentSlideIndex) {
 
-        if(currentSlideIndex === lastSlideIndex){
+        if (currentSlideIndex === lastSlideIndex) {
           return;
         }
 
@@ -330,34 +330,34 @@
         var imageToLoad;
         var slidePosition = lastSlideIndex + '>' + currentSlideIndex;
 
-        if(slidePosition === '0>1' || slidePosition === '1>2' || slidePosition === '2>0'){
+        if (slidePosition === '0>1' || slidePosition === '1>2' || slidePosition === '2>0') {
           currentImage++;
 
-          if(currentImage >= galleryLength){
+          if (currentImage >= galleryLength) {
             currentImage = 0;
           }
 
           imageToLoad = currentImage + 1;
 
-          if( imageToLoad >= galleryLength){
+          if (imageToLoad >= galleryLength) {
             imageToLoad = 0;
           }
         }
-        else if(slidePosition === '0>2' || slidePosition === '1>0' || slidePosition === '2>1'){
+        else if (slidePosition === '0>2' || slidePosition === '1>0' || slidePosition === '2>1') {
           currentImage--;
 
-          if(currentImage < 0){
-            currentImage = galleryLength - 1 ;
+          if (currentImage < 0) {
+            currentImage = galleryLength - 1;
           }
 
           imageToLoad = currentImage - 1;
 
-          if(imageToLoad < 0){
+          if (imageToLoad < 0) {
             imageToLoad = galleryLength - 1;
           }
         }
 
-        if($scope.ionZoomEvents === true){
+        if ($scope.ionZoomEvents === true) {
           //Clear zoom
           $ionicScrollDelegate.$getByHandle('slide-' + slideToLoad).zoomTo(1);
         }
@@ -367,64 +367,74 @@
         lastSlideIndex = currentSlideIndex;
       };
 
-      $scope.$on('ZoomStarted', function(e){
+      var _zoomStart = function () {
+        zoomStart = true;
+        $scope.hideAll = true;
+        $ionicSlideBoxDelegate.enableSlide(false);
+      };
+
+      var _zoomEnd = function () {
+        zoomStart = false;
+        $scope.hideAll = false;
+        $ionicSlideBoxDelegate.enableSlide(true);
+      };
+
+      $scope.$on('ZoomStarted', function (e) {
         $timeout(function () {
-          zoomStart = true;
-          $scope.hideAll = true;
+          _zoomStart();
         });
 
       });
 
-      $scope.$on('TapEvent', function(e){
+      $scope.$on('TapEvent', function (e) {
         $timeout(function () {
           _onTap();
         });
 
       });
 
-      $scope.$on('DoubleTapEvent', function(event,position){
+      $scope.$on('DoubleTapEvent', function (event, position) {
         $timeout(function () {
           _onDoubleTap(position);
         });
 
       });
 
-      var _onTap = function _onTap(){
-        if(zoomStart === true){
-          if($scope.ionZoomEvents === true){
-            $ionicScrollDelegate.$getByHandle('slide-'+lastSlideIndex).zoomTo(1,true);
+      var _onTap = function _onTap() {
+        if (zoomStart === true) {
+          if ($scope.ionZoomEvents === true) {
+            $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo(1, true);
           }
 
           $timeout(function () {
             _isOriginalSize();
-          },300);
+          }, 300);
 
           return;
         }
 
-        if(($scope.hasOwnProperty('ionSliderToggle') && $scope.ionSliderToggle === false && $scope.hideAll === false) || zoomStart === true){
+        if (($scope.hasOwnProperty('ionSliderToggle') && $scope.ionSliderToggle === false && $scope.hideAll === false) || zoomStart === true) {
           return;
         }
 
         $scope.hideAll = !$scope.hideAll;
       };
 
-      var _onDoubleTap = function _onDoubleTap(position){
-        if(zoomStart === false){
-          if($scope.ionZoomEvents === true){
-            $ionicScrollDelegate.$getByHandle('slide-'+lastSlideIndex).zoomTo(3,true,position.x,position.y);
+      var _onDoubleTap = function _onDoubleTap(position) {
+        if (zoomStart === false) {
+          if ($scope.ionZoomEvents === true) {
+            $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo(3, true, position.x, position.y);
           }
 
-          zoomStart = true;
-          $scope.hideAll = true;
+          _zoomStart();
         }
-        else{
+        else {
           _onTap();
         }
       };
 
-      function _isOriginalSize(){
-        zoomStart = false;
+      function _isOriginalSize() {
+        _zoomEnd();
         _onTap();
       }
 
@@ -436,22 +446,22 @@
       $ionicModal.fromTemplateUrl(ionGalleryConfig.template_slider, {
         scope: scope,
         animation: 'fade-in'
-      }).then(function(modal){
+      }).then(function (modal) {
         _modal = modal;
       });
 
-      scope.openModal = function() {
+      scope.openModal = function () {
         _modal.show();
       };
 
-      scope.closeModal = function() {
+      scope.closeModal = function () {
         _modal.hide();
       };
 
-      scope.$on('$destroy', function() {
-        try{
+      scope.$on('$destroy', function () {
+        try {
           _modal.remove();
-        } catch(err) {
+        } catch (err) {
           console.log(err.message);
         }
       });
@@ -481,5 +491,5 @@
   }
 })();
 
-angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("gallery.html","<div class=\"gallery-view\">\r\n  <div class=\"row\" ng-repeat=\"item in items track by $index\" ion-row-height>\r\n    <div ng-repeat=\"photo in item track by $index\"\r\n         class=\"col col-{{responsiveGrid}} image-container\">\r\n\r\n      <img ion-image-scale\r\n           ng-src=\"{{photo.thumb || photo.src}}\"\r\n           ng-click=\"customItemAction ? ionItemAction({item: photo}) : openSlider(photo.position)\">\r\n\r\n    </div>\r\n  </div>\r\n  <div ion-slider></div>\r\n</div>\r\n");
-$templateCache.put("slider.html","<ion-modal-view class=\"imageView\">\r\n  <ion-header-bar class=\"headerView\" ng-show=\"!hideAll\">\r\n    <button class=\"button button-outline button-light close-btn\" ng-click=\"closeModal()\">{{::actionLabel}}</button>\r\n  </ion-header-bar>\r\n\r\n  <ion-content class=\"has-no-header\" scroll=\"false\">\r\n    <ion-slide-box does-continue=\"true\" active-slide=\"selectedSlide\" show-pager=\"false\" class=\"listContainer\" on-slide-changed=\"slideChanged($index)\">\r\n      <ion-slide ng-repeat=\"single in slides track by $index\">\r\n        <ion-scroll direction=\"xy\"\r\n                    locking=\"false\"\r\n                    zooming=\"{{ionZoomEvents}}\"\r\n                    min-zoom=\"1\"\r\n                    scrollbar-x=\"false\"\r\n                    scrollbar-y=\"false\"\r\n                    ion-slide-action\r\n                    delegate-handle=\"slide-{{$index}}\"\r\n                    overflow-scroll=\"false\"\r\n                    >\r\n        <div class=\"item item-image gallery-slide-view\">\r\n          <img ng-src=\"{{single.src}}\">\r\n        </div>\r\n        <div ng-if=\"single.sub && single.sub.length > 0\" class=\"image-subtitle\" ng-show=\"!hideAll\">\r\n            <span ng-bind-html=\'single.sub\'></span>\r\n        </div>\r\n        </ion-scroll>\r\n      </ion-slide>\r\n    </ion-slide-box>\r\n  </ion-content>\r\n</ion-modal-view>\r\n");}]);
+angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("gallery.html","<div class=\"gallery-view\">\n  <div class=\"row\" ng-repeat=\"item in items track by $index\" ion-row-height>\n    <div ng-repeat=\"photo in item track by $index\"\n         class=\"col col-{{responsiveGrid}} image-container\">\n\n      <img ion-image-scale\n           ng-src=\"{{photo.thumb || photo.src}}\"\n           ng-click=\"customItemAction ? ionItemAction({item: photo}) : openSlider(photo.position)\">\n\n    </div>\n  </div>\n  <div ion-slider></div>\n</div>\n");
+$templateCache.put("slider.html","<ion-modal-view class=\"imageView\">\n  <ion-header-bar class=\"headerView\" ng-show=\"!hideAll\">\n    <button class=\"button button-outline button-light close-btn\" ng-click=\"closeModal()\">{{::actionLabel}}</button>\n  </ion-header-bar>\n\n  <ion-content class=\"has-no-header\" scroll=\"false\">\n    <ion-slide-box does-continue=\"true\" active-slide=\"selectedSlide\" show-pager=\"false\" class=\"listContainer\" on-slide-changed=\"slideChanged($index)\">\n      <ion-slide ng-repeat=\"single in slides track by $index\">\n        <ion-scroll direction=\"xy\"\n                    locking=\"false\"\n                    zooming=\"{{ionZoomEvents}}\"\n                    min-zoom=\"1\"\n                    scrollbar-x=\"false\"\n                    scrollbar-y=\"false\"\n                    ion-slide-action\n                    delegate-handle=\"slide-{{$index}}\"\n                    overflow-scroll=\"false\"\n                    >\n        <div class=\"item item-image gallery-slide-view\">\n          <img ng-src=\"{{single.src}}\">\n        </div>\n        <div ng-if=\"single.sub && single.sub.length > 0\" class=\"image-subtitle\" ng-show=\"!hideAll\">\n            <span ng-bind-html=\'single.sub\'></span>\n        </div>\n        </ion-scroll>\n      </ion-slide>\n    </ion-slide-box>\n  </ion-content>\n</ion-modal-view>\n");}]);
