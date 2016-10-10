@@ -130,9 +130,7 @@
             $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo(1, true);
           }
 
-          $timeout(function () {
-            _isOriginalSize();
-          }, 300);
+          _zoomEnd();
 
           return;
         }
@@ -156,11 +154,6 @@
           _onTap();
         }
       };
-
-      function _isOriginalSize() {
-        _zoomEnd();
-        _onTap();
-      }
 
     }
 
