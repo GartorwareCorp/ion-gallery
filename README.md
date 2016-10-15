@@ -7,7 +7,7 @@ Demo availabe in Ionic View with id 150745FE
 
 # Features
 
- - Define number of collums to present (1 to array length)
+ - Define number of collums to present (1 to 12)
  - Pinch and double tap do zoom on picture
 
 # Usage
@@ -85,7 +85,7 @@ zoom_events - true (Boolean)
 
 Markup overrides provider definitions
 
-- ion-gallery-row: Defines size of the row. Default to 3 images per row
+- ion-gallery-row: Defines size of the row. Default to 3 images per row (max 12)
 
           <ion-gallery ion-gallery-items="items" ion-gallery-row="5"></ion-gallery>
 

@@ -1,19 +1,76 @@
 .gallery-view{
-  
-  .image-container{
-    position: relative;
-    overflow: hidden;
-    border: 2px solid white;
-    
-    img{
+
+  .row.unlimited-items {
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+  }
+
+  .row.unlimited-items .col {
+      -webkit-flex: none;
+      flex: none;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid white;
+      height: 100%;
+  }
+
+  .row.unlimited-items .col img{
       position: absolute;
       top: -9999px;
       bottom: -9999px;
       left: -9999px;
       right: -9999px;
       margin: auto;
-    }
   }
+
+  .row.unlimited-items.row-size-1 .col {
+      width: 100%;
+  }
+
+  .row.unlimited-items.row-size-2 .col {
+      width: 50%;
+  }
+
+  .row.unlimited-items.row-size-3 .col {
+      width: 33.33%;
+  }
+
+  .row.unlimited-items.row-size-4 .col {
+      width: 25%;
+  }
+
+  .row.unlimited-items.row-size-5 .col {
+      width: 20%;
+  }
+
+  .row.unlimited-items.row-size-6 .col {
+      width: 16.66%;
+  }
+
+  .row.unlimited-items.row-size-7 .col {
+      width: 14.28%;
+  }
+
+  .row.unlimited-items.row-size-8 .col {
+      width: 12.5%;
+  }
+
+  .row.unlimited-items.row-size-9 .col {
+      width: 11.11%;
+  }
+
+  .row.unlimited-items.row-size-10 .col {
+      width: 10%;
+  }
+
+  .row.unlimited-items.row-size-11 .col {
+      width: 9.09%;
+  }
+
+  .row.unlimited-items.row-size-12 .col {
+      width: 8.33%;
+  }
+
 }
 
 .imageView{
@@ -110,3 +167,4 @@
     align-items: center;
   }
 }
+

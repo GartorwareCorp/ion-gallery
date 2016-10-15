@@ -1,24 +1,24 @@
-(function(){
+(function () {
   'use strict';
 
   angular
     .module('ion-gallery')
-    .service('ionGalleryHelper',ionGalleryHelper);
+    .service('ionGalleryHelper', ionGalleryHelper);
 
   ionGalleryHelper.$inject = ['ionGalleryConfig'];
 
   function ionGalleryHelper(ionGalleryConfig) {
 
-    this.getRowSize = function(size,length){
+    this.getRowSize = function (size, length) {
       var rowSize;
 
-      if(isNaN(size) === true || size <= 0){
+      if (isNaN(size) === true || size <= 0) {
         rowSize = ionGalleryConfig.row_size;
       }
-      else if(size > length && !ionGalleryConfig.fixed_row_size){
+      else if (size > length && !ionGalleryConfig.fixed_row_size) {
         rowSize = length;
       }
-      else{
+      else {
         rowSize = size;
       }
 
@@ -26,14 +26,14 @@
 
     };
 
-    this.buildGallery = function(items,rowSize){
+    this.buildGallery = function (items, rowSize) {
       var _gallery = [];
       var row = -1;
       var col = 0;
 
-      for(var i=0;i<items.length;i++){
+      for (var i = 0; i < items.length; i++) {
 
-        if(i % rowSize === 0){
+        if (i % rowSize === 0) {
           row++;
           _gallery[row] = [];
           col = 0;
@@ -47,5 +47,12 @@
 
       return _gallery;
     };
+
+    this.addPositionToImages = function (items) {
+      for (var i = 0; i < items.length; i++) {
+        items[i].position = i;
+      }
+    };
+    
   }
 })();
