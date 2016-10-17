@@ -1,7 +1,7 @@
 <div class="gallery-view">
 
-	<div class="row unlimited-items" ng-class="'row-size-' + ionGalleryRowSize" ion-row-height>
-		<div class="col col-{{responsiveGrid}}" ng-repeat="item in ionGalleryItems track by $index">
+	<div class="row unlimited-cols" ng-class="'row-size-' + ionGalleryRowSize" ion-row-height>
+		<div class="col" ng-repeat="item in ionGalleryItems track by $index">
 			<img ion-image-scale ng-src="{{item.thumb || item.src}}" ng-click="customItemAction ? ionItemAction({item: item}) : openSlider(item.position)">
 		</div>
 	</div>

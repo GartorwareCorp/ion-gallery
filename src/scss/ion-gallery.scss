@@ -1,11 +1,11 @@
 .gallery-view{
 
-  .row.unlimited-items {
+  .row.unlimited-cols {
       -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
   }
 
-  .row.unlimited-items .col {
+  .row.unlimited-cols .col {
       -webkit-flex: none;
       flex: none;
       position: relative;
@@ -14,7 +14,7 @@
       height: 100%;
   }
 
-  .row.unlimited-items .col img{
+  .row.unlimited-cols .col img{
       position: absolute;
       top: -9999px;
       bottom: -9999px;
@@ -23,51 +23,51 @@
       margin: auto;
   }
 
-  .row.unlimited-items.row-size-1 .col {
+  .row.unlimited-cols.row-size-1 .col {
       width: 100%;
   }
 
-  .row.unlimited-items.row-size-2 .col {
+  .row.unlimited-cols.row-size-2 .col {
       width: 50%;
   }
 
-  .row.unlimited-items.row-size-3 .col {
+  .row.unlimited-cols.row-size-3 .col {
       width: 33.33%;
   }
 
-  .row.unlimited-items.row-size-4 .col {
+  .row.unlimited-cols.row-size-4 .col {
       width: 25%;
   }
 
-  .row.unlimited-items.row-size-5 .col {
+  .row.unlimited-cols.row-size-5 .col {
       width: 20%;
   }
 
-  .row.unlimited-items.row-size-6 .col {
+  .row.unlimited-cols.row-size-6 .col {
       width: 16.66%;
   }
 
-  .row.unlimited-items.row-size-7 .col {
+  .row.unlimited-cols.row-size-7 .col {
       width: 14.28%;
   }
 
-  .row.unlimited-items.row-size-8 .col {
+  .row.unlimited-cols.row-size-8 .col {
       width: 12.5%;
   }
 
-  .row.unlimited-items.row-size-9 .col {
+  .row.unlimited-cols.row-size-9 .col {
       width: 11.11%;
   }
 
-  .row.unlimited-items.row-size-10 .col {
+  .row.unlimited-cols.row-size-10 .col {
       width: 10%;
   }
 
-  .row.unlimited-items.row-size-11 .col {
+  .row.unlimited-cols.row-size-11 .col {
       width: 9.09%;
   }
 
-  .row.unlimited-items.row-size-12 .col {
+  .row.unlimited-cols.row-size-12 .col {
       width: 8.33%;
   }
 
