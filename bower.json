@@ -1,6 +1,6 @@
 {
   "name": "ion-gallery",
-  "version": "v1.1.0",
+  "version": "v1.1.1",
   "description": "Ionic gallery directive",
   "main": "dist/ion-gallery.min.js",
   "keywords": [
