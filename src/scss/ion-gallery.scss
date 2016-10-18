@@ -26,6 +26,10 @@
         height: 32px;
     }
 
+    .image-container{
+        cursor: pointer;
+    }
+
     .image-container.selected:after{
         pointer-events: none;
         content:'';
@@ -174,6 +178,8 @@
     position: absolute;
     width: 100%;
     height:100%;
+    overflow-x: auto;
+    overflow-y: auto;
   }
 
   .scroll-view .scroll {
