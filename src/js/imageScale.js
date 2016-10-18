@@ -1,42 +1,42 @@
-(function(){
+(function () {
   'use strict';
 
   angular
     .module('ion-gallery')
-    .directive('ionImageScale',ionImageScale);
+    .directive('ionImageScale', ionImageScale);
 
   ionImageScale.$inject = [];
 
-  function ionImageScale(){
-    
+  function ionImageScale() {
+
     return {
       restrict: 'A',
-      link : link
+      link: link
     };
 
     function link(scope, element, attrs) {
-      
-      var scaleImage = function(context,value) {
-        if(value>0){
-          if(context.naturalHeight >= context.naturalWidth){
-            element.attr('width','100%');
+
+      var scaleImage = function (context, value) {
+        if (value > 0) {
+          if (context.naturalHeight >= context.naturalWidth) {
+            element.attr('width', '100%');
           }
-          else{
-            element.attr('height',element.parent()[0].offsetHeight+'px');
+          else {
+            element.attr('height', element.parent()[0].offsetHeight + 'px');
           }
-        } 
-      };
-      
-      element.bind("load" , function(e){
-        var _this = this;
-        if(element.parent()[0].offsetHeight > 0){
-          scaleImage(this,element.parent()[0].offsetHeight);
         }
-        
-        scope.$watch(function(){
+      };
+
+      element.bind("load", function (e) {
+        var _this = this;
+        if (element.parent()[0].offsetHeight > 0) {
+          scaleImage(this, element.parent()[0].offsetHeight);
+        }
+
+        scope.$watch(function () {
           return element.parent()[0].offsetHeight;
-        },function(newValue){
-          scaleImage(_this,newValue);
+        }, function (newValue) {
+          scaleImage(_this, newValue);
         });
       });
     }

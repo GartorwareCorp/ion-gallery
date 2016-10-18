@@ -14,7 +14,8 @@
         ionGalleryItems: '=ionGalleryItems',
         ionGalleryRowSize: '=?ionGalleryRow',
         ionItemAction: '&?ionItemAction',
-        ionZoomEvents: '=?ionZoomEvents'
+        ionZoomEvents: '=?ionZoomEvents',
+        ionSelectionModeActions: '=ionSelectionModeActions'
       },
       controller: controller,
       link: link,
@@ -24,12 +25,18 @@
 
     function controller($scope) {
       var _rowSize = parseInt($scope.ionGalleryRowSize);
+      $scope.ionSelectionMode = false;
 
       var _drawGallery = function () {
         $scope.ionGalleryRowSize = ionGalleryHelper.getRowSize(_rowSize || ionGalleryConfig.row_size, $scope.ionGalleryItems.length);
         $scope.actionLabel = ionGalleryConfig.action_label;
         $scope.responsiveGrid = parseInt((1 / $scope.ionGalleryRowSize) * 100);
         ionGalleryHelper.addPositionToImages($scope.ionGalleryItems);
+        $scope.ionGallerySelectedItems = [];
+        $scope.cancelLabel = ionGalleryConfig.cancel_label;
+        $scope.elementsSelectedLabel = ionGalleryConfig.elements_selected_label;
+        $scope.selectAllLabel = ionGalleryConfig.select_all_label;
+        $scope.unselectAllLabel = ionGalleryConfig.unselect_all_label;
       };
 
       _drawGallery();
@@ -42,7 +49,31 @@
             _drawGallery();
           }
         });
-      }());
+      } ());
+
+      $scope.activateSelectionMode = function () {
+        if (!$scope.ionSelectionMode) {
+          $scope.unselectAll();
+          $scope.ionSelectionMode = true;
+        }
+      };
+
+      $scope.cancelSelectionMode = function () {
+        $scope.unselectAll();
+        $scope.ionSelectionMode = false;
+      };
+
+      $scope.toggleSelection = function (item) {
+        ionGalleryHelper.toggleItemSelection(item, $scope.ionGallerySelectedItems);
+      };
+
+      $scope.selectAll = function () {
+        ionGalleryHelper.selectAllItems($scope.ionGalleryItems, $scope.ionGallerySelectedItems);
+      };
+
+      $scope.unselectAll = function () {
+        ionGalleryHelper.unselectAllItems($scope.ionGalleryItems, $scope.ionGallerySelectedItems);
+      };
 
     }
 

@@ -1,10 +1,34 @@
 <div class="gallery-view">
 
-	<div class="row unlimited-cols" ng-class="'row-size-' + ionGalleryRowSize" ion-row-height>
-		<div class="col" ng-repeat="item in ionGalleryItems track by $index">
-			<img ion-image-scale ng-src="{{item.thumb || item.src}}" ng-click="customItemAction ? ionItemAction({item: item}) : openSlider(item.position)">
+	<ion-header-bar align-title="left" class="bar-subheader bar-stable" ng-show="ionSelectionMode">
+		<div class="buttons">
+			<button class="button" ng-click="cancelSelectionMode()">{{:: cancelLabel}}</button>
 		</div>
-	</div>
+		<h1 class="title">{{ionGallerySelectedItems.length}} {{:: elementsSelectedLabel}}</h1>
+		<div class="buttons">
+			<button class="button" ng-click="selectAll()" ng-if="ionGallerySelectedItems.length < ionGalleryItems.length">{{:: selectAllLabel}}</button>
+			<button class="button" ng-click="unselectAll()" ng-if="ionGallerySelectedItems.length >= ionGalleryItems.length">{{:: unselectAllLabel}}</button>
+		</div>
+	</ion-header-bar>
 
-	<div ion-slider></div>
+	<ion-content class="has-header" ng-class="{'has-subheader has-footer': ionSelectionMode}">
+		<div class="row unlimited-cols" ng-class="'row-size-' + ionGalleryRowSize" ion-row-height>
+			<div class="col image-container" ng-class="{'selected': item.selected}" ng-repeat="item in ionGalleryItems track by $index">
+				<img ion-image-scale ng-src="{{item.thumb || item.src}}" on-hold="activateSelectionMode();toggleSelection(item);" ng-click="ionSelectionMode? toggleSelection(item) : customItemAction? ionItemAction({item: item}) : openSlider(item.position)">
+			</div>
+		</div>
+
+		<div ion-slider></div>
+	</ion-content>
+
+	<ion-footer-bar class="bar-stable" ng-show="ionSelectionMode && ionSelectionModeActions.length">
+		<div class="buttons">
+			<button ng-repeat="action in ionSelectionModeActions track by $index" ng-click="action.buttonAction(ionGallerySelectedItems)"
+				class="button button-icon icon-top">
+				<i class="icon" ng-class="action.buttonIcon"></i>
+				<span>{{:: action.buttonLabel}}</span>
+			</button>
+		</div>
+	</ion-footer-bar>
+
 </div>

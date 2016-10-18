@@ -53,6 +53,32 @@
         items[i].position = i;
       }
     };
-    
+
+    this.toggleItemSelection = function (item, selectedItems) {
+      item.selected = !item.selected;
+
+      var index = selectedItems.indexOf(item);
+      if (index != -1) {
+        selectedItems.splice(index, 1);
+      } else {
+        selectedItems.push(item);
+      }
+    };
+
+    this.selectAllItems = function (items, selectedItems) {
+      selectedItems.length = 0;
+      for (var i = 0; i < items.length; i++) {
+        items[i].selected = true;
+        selectedItems.push(items[i]);
+      }
+    };
+
+    this.unselectAllItems = function (items, selectedItems) {
+      selectedItems.length = 0;
+      for (var i = 0; i < items.length; i++) {
+        items[i].selected = false;
+      }
+    };
+
   }
 })();

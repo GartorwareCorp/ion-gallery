@@ -24,7 +24,7 @@
 
       $scope.selectedSlide = 1;
       $scope.hideAll = false;
-      $scope.ionZoomEvents = ionSliderHelper.setZoomEvents($scope.ionZoomEvents)
+      $scope.ionZoomEvents = ionSliderHelper.setZoomEvents($scope.ionZoomEvents);
 
       $scope.openSlider = function (index) {
         $scope.slides = [];

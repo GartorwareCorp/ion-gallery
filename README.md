@@ -1,9 +1,7 @@
 # ion-gallery
 Ionic gallery with slider
 
-Demo availabe in Ionic View with id 150745FE
-
-    $ bower install --save ion-gallery
+    $ bower install --save https://github.com/GartorwareCorp/ion-gallery.git
 
 # Features
 
@@ -51,6 +49,42 @@ Supports html tags.
 
 UI will reflect changes on the content object passed to the directive. Example of adding and removing pictures can be seen in the ionic view app.
 
+# Selection mode
+
+ion-gallery can enter in selection mode calling `activateSelectionMode()` on the gallery template. For instance:
+
+```
+<img ... on-hold="activateSelectionMode();toggleSelection(item);">
+```
+
+When in selection mode you can choose a subset of items to work with.
+
+Selection mode let's you pass an array of actions with this structure:
+
+```
+$scope.selectionModeActions = [
+            {
+                buttonIcon: 'ion-trash-a',
+                buttonLabel: 'Delete',
+                buttonAction: function (items) {
+                    ...
+                }
+            }
+        ];
+```
+
+This array can be passed to directive:
+
+```
+<ion-gallery ion-gallery-items="items" ion-selection-mode-actions="selectionModeActions"></ion-gallery>
+```
+
+This will show a footer with these actions when in selection mode.
+
+- buttonIcon - The icon of the button
+- buttonLabel - The label of the button
+- buttonAction - Function which receive an array of (selected) items to work with.
+
 # Config
 
 - Via provider:
@@ -65,7 +99,11 @@ app.config(function(ionGalleryConfigProvider) {
                           template_slider: 'slider.html',
                           toggle: false,
                           row_size: 3,
-                          fixed_row_size: true
+                          fixed_row_size: true,
+                          cancel_label: 'Cancel',
+                          elements_selected_label: 'selected',
+                          select_all_label: 'Select all',
+                          unselect_all_label: 'Unselect all'
   });
 });
 ```
@@ -79,9 +117,13 @@ toggle - false (Boolean)
 row_size - 3 (Int)
 fixed_row_size - true (boolean). If true, thumbnails in gallery will always be sized as if there are "row_size" number of images in a row (even if there aren't). If set to false, the row_size will be dynamic until it reaches the set row_size (Ex: if only 1 image it will be rendered in the entire row, if 2 images, both will be rendered in the entire row)
 zoom_events - true (Boolean)
+cancel_label - 'Cancel' (String)
+elements_selected_label - 'selected' (String)
+select_all_label - 'Select all' (String)
+unselect_all_label - 'Unselect all' (String)
 ```
 
-- Via markup:
+# Markup Config
 
 Markup overrides provider definitions
 
@@ -100,3 +142,8 @@ Markup overrides provider definitions
 - ion-zoom-events: Enable/Disable all zoom events in slider (pinchToZoom, tap and double tap). Default: true
 
           <ion-gallery ion-gallery-items="items" ion-zoom-events="true"></ion-gallery>
+
+- ion-selection-mode-actions: Defines an array of actions to show on footer when selection mode is enabled. Default: null
+
+          <ion-gallery ion-gallery-items="items" ion-selection-mode-actions="selectionModeActions"></ion-gallery>
+
