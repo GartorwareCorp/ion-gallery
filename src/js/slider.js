@@ -145,7 +145,7 @@
       var _onDoubleTap = function _onDoubleTap(position) {
         if (zoomStart === false) {
           if ($scope.ionZoomEvents === true) {
-            $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo(3, true, position.x, position.y);
+            $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo($scope.ionSliderMaxZoom, true, position.x, position.y);
           }
 
           _zoomStart();

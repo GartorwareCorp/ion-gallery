@@ -147,3 +147,7 @@ Markup overrides provider definitions
 
           <ion-gallery ion-gallery-items="items" ion-selection-mode-actions="selectionModeActions"></ion-gallery>
 
+- ion-slider-max-zoom: Defines max zoom in slider. Default: 3
+
+          <ion-gallery ion-gallery-items="items" ion-slider-max-zoom="2.5"></ion-gallery>
+

@@ -16,7 +16,8 @@
         ionGalleryRowSize: '=?ionGalleryRow',
         ionItemAction: '&?ionItemAction',
         ionZoomEvents: '=?ionZoomEvents',
-        ionSelectionModeActions: '=ionSelectionModeActions'
+        ionSelectionModeActions: '=ionSelectionModeActions',
+        ionSliderMaxZoom: '=?ionSliderMaxZoom'
       },
       controller: controller,
       link: link,
@@ -38,6 +39,7 @@
         $scope.elementsSelectedLabel = ionGalleryConfig.elements_selected_label;
         $scope.selectAllLabel = ionGalleryConfig.select_all_label;
         $scope.unselectAllLabel = ionGalleryConfig.unselect_all_label;
+        $scope.ionSliderMaxZoom = $scope.ionSliderMaxZoom || 3;
       };
 
       _drawGallery();
@@ -489,7 +491,7 @@
       var _onDoubleTap = function _onDoubleTap(position) {
         if (zoomStart === false) {
           if ($scope.ionZoomEvents === true) {
-            $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo(3, true, position.x, position.y);
+            $ionicScrollDelegate.$getByHandle('slide-' + lastSlideIndex).zoomTo($scope.ionSliderMaxZoom, true, position.x, position.y);
           }
 
           _zoomStart();
@@ -553,4 +555,4 @@
 })();
 
 angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("gallery.html","<div class=\"gallery-view\">\n\n	<ion-header-bar align-title=\"left\" class=\"bar-subheader bar-stable\" ng-show=\"ionSelectionMode\">\n		<div class=\"buttons\">\n			<button class=\"button\" ng-click=\"cancelSelectionMode()\">{{:: cancelLabel}}</button>\n		</div>\n		<h1 class=\"title\">{{ionGallerySelectedItems.length}} {{:: elementsSelectedLabel}}</h1>\n		<div class=\"buttons\">\n			<button class=\"button\" ng-click=\"selectAll()\" ng-if=\"ionGallerySelectedItems.length < ionGalleryItems.length\">{{:: selectAllLabel}}</button>\n			<button class=\"button\" ng-click=\"unselectAll()\" ng-if=\"ionGallerySelectedItems.length >= ionGalleryItems.length\">{{:: unselectAllLabel}}</button>\n		</div>\n	</ion-header-bar>\n\n	<ion-content class=\"has-header\" ng-class=\"{\'has-subheader has-footer\': ionSelectionMode}\">\n		<div class=\"row unlimited-cols\" ng-class=\"\'row-size-\' + ionGalleryRowSize\" ion-row-height>\n			<div class=\"col image-container\" ng-class=\"{\'selected\': item.selected}\" ng-repeat=\"item in ionGalleryItems track by $index\">\n				<img ion-image-scale ng-src=\"{{item.thumb || item.src}}\" on-hold=\"activateSelectionMode();toggleSelection(item);\" ng-click=\"ionSelectionMode? toggleSelection(item) : customItemAction? ionItemAction({item: item}) : openSlider(item.position)\">\n			</div>\n		</div>\n\n		<div ion-slider></div>\n	</ion-content>\n\n	<ion-footer-bar class=\"bar-stable\" ng-show=\"ionSelectionMode && ionSelectionModeActions.length\">\n		<div class=\"buttons\">\n			<button ng-repeat=\"action in ionSelectionModeActions track by $index\" ng-click=\"action.buttonAction(ionGallerySelectedItems)\"\n				class=\"button button-icon icon-top\">\n				<i class=\"icon\" ng-class=\"action.buttonIcon\"></i>\n				<span>{{:: action.buttonLabel}}</span>\n			</button>\n		</div>\n	</ion-footer-bar>\n\n</div>");
-$templateCache.put("slider.html","<ion-modal-view class=\"imageView\">\n  <ion-header-bar class=\"headerView\" ng-show=\"!hideAll\">\n    <button class=\"button button-outline button-light close-btn\" ng-click=\"closeModal()\">{{::actionLabel}}</button>\n  </ion-header-bar>\n\n  <ion-content class=\"has-no-header\" scroll=\"false\">\n    <ion-slide-box does-continue=\"true\" active-slide=\"selectedSlide\" show-pager=\"false\" class=\"listContainer\" on-slide-changed=\"slideChanged($index)\">\n      <ion-slide ng-repeat=\"single in slides track by $index\">\n        <ion-scroll direction=\"xy\"\n                    locking=\"false\"\n                    zooming=\"{{ionZoomEvents}}\"\n                    min-zoom=\"1\"\n                    scrollbar-x=\"false\"\n                    scrollbar-y=\"false\"\n                    ion-slide-action\n                    delegate-handle=\"slide-{{$index}}\"\n                    overflow-scroll=\"false\">\n        <div class=\"item item-image gallery-slide-view\">\n          <img ng-src=\"{{single.src}}\">\n        </div>\n        <div ng-if=\"single.sub && single.sub.length > 0\" class=\"image-subtitle\" ng-show=\"!hideAll\">\n            <span ng-bind-html=\'single.sub\'></span>\n        </div>\n        </ion-scroll>\n      </ion-slide>\n    </ion-slide-box>\n  </ion-content>\n</ion-modal-view>\n");}]);
+$templateCache.put("slider.html","<ion-modal-view class=\"imageView\">\n  <ion-header-bar class=\"headerView\" ng-show=\"!hideAll\">\n    <button class=\"button button-outline button-light close-btn\" ng-click=\"closeModal()\">{{::actionLabel}}</button>\n  </ion-header-bar>\n\n  <ion-content class=\"has-no-header\" scroll=\"false\">\n    <ion-slide-box does-continue=\"true\" active-slide=\"selectedSlide\" show-pager=\"false\" class=\"listContainer\" on-slide-changed=\"slideChanged($index)\">\n      <ion-slide ng-repeat=\"single in slides track by $index\">\n        <ion-scroll direction=\"xy\"\n                    locking=\"false\"\n                    zooming=\"{{ionZoomEvents}}\"\n                    min-zoom=\"1\"\n                    max-zoom=\"{{ionSliderMaxZoom}}\"\n                    scrollbar-x=\"false\"\n                    scrollbar-y=\"false\"\n                    ion-slide-action\n                    delegate-handle=\"slide-{{$index}}\"\n                    overflow-scroll=\"false\">\n        <div class=\"item item-image gallery-slide-view\">\n          <img ng-src=\"{{single.src}}\">\n        </div>\n        <div ng-if=\"single.sub && single.sub.length > 0\" class=\"image-subtitle\" ng-show=\"!hideAll\">\n            <span ng-bind-html=\'single.sub\'></span>\n        </div>\n        </ion-scroll>\n      </ion-slide>\n    </ion-slide-box>\n  </ion-content>\n</ion-modal-view>\n");}]);

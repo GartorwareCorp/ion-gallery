@@ -15,7 +15,8 @@
         ionGalleryRowSize: '=?ionGalleryRow',
         ionItemAction: '&?ionItemAction',
         ionZoomEvents: '=?ionZoomEvents',
-        ionSelectionModeActions: '=ionSelectionModeActions'
+        ionSelectionModeActions: '=ionSelectionModeActions',
+        ionSliderMaxZoom: '=?ionSliderMaxZoom'
       },
       controller: controller,
       link: link,
@@ -37,6 +38,7 @@
         $scope.elementsSelectedLabel = ionGalleryConfig.elements_selected_label;
         $scope.selectAllLabel = ionGalleryConfig.select_all_label;
         $scope.unselectAllLabel = ionGalleryConfig.unselect_all_label;
+        $scope.ionSliderMaxZoom = $scope.ionSliderMaxZoom || 3;
       };
 
       _drawGallery();
