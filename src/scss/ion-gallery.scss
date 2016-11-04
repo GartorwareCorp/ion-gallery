@@ -30,6 +30,26 @@
         cursor: pointer;
     }
 
+    .bar-subheader{
+        height: 34px;
+    }
+
+    .has-subheader{
+        top: 78px;
+    }
+
+    .bar-subheader .title{
+        font-size: 14px;
+        height: 33px;
+        line-height: 34px;
+    }
+
+    .bar-subheader .button{
+        font-size: 11px;
+        min-height: 23px;
+        line-height: 24px;
+    }
+
     .image-container.selected:after{
         pointer-events: none;
         content:'';
